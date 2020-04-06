@@ -1,4 +1,5 @@
 let snake;
+let food;
 
 function setup() {
   // put setup code here
@@ -8,14 +9,16 @@ function setup() {
 
   //initialize objects
   snake = new Snake(0, 0, 15, canvasWidth);
+  food = new Food(round(random(600)), round(random(600)), 15, canvasWidth);
 }
 
-function draw() {  
+function draw() {
   // put drawing code here
   background(0, 0, 0);
 
   snake.update(deltaTime * 0.001);
   snake.render();
+  food.render();
 }
 
 function keyPressed() {
@@ -28,5 +31,5 @@ function keyPressed() {
     snake.setDirection(direction.UP);
   } else if (keyCode == DOWN_ARROW) {
     snake.setDirection(direction.DOWN);
-  } 
+  }
 }

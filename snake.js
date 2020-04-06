@@ -8,6 +8,9 @@ class Snake {
     }
 
     render() {
+        let c = color(255, 255, 255);
+        noStroke();
+        fill(c);
         rect(this.x, this.y, this.width, this.width);
     }
 
