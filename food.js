@@ -1,9 +1,8 @@
 class Food {
-    constructor(xpos, ypos, width, canvasWidth) {
+    constructor(xpos, ypos, width) {
         this.x = xpos;
         this.y = ypos;
         this.width = width;
-        this.canvasWidth = canvasWidth;
     }
 
     render() {

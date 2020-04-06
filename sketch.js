@@ -3,26 +3,31 @@ let food;
 
 function setup() {
   // put setup code here
-  let canvasWidth = 600;
+  let canvasWidth = 450;
   let canvas = createCanvas(canvasWidth, canvasWidth);
   canvas.position(10, 10);
+  let scale = 15;
 
   //initialize objects
-  snake = new Snake(0, 0, 15, canvasWidth);
-  food = new Food(round(random(600)), round(random(600)), 15, canvasWidth);
+  snake = new Snake(0, 0, 1, 1, scale, canvasWidth);
+
+  let upperLimit = canvasWidth / scale;
+  let xpos = int(random(upperLimit)) * scale;
+  let ypos = int(random(upperLimit)) * scale;
+  food = new Food(xpos, ypos, scale);
+  frameRate(1);
 }
 
 function draw() {
   // put drawing code here
   background(0, 0, 0);
 
-  snake.update(deltaTime * 0.001);
+  snake.update();
   snake.render();
   food.render();
 }
 
 function keyPressed() {
-  snake.setSpeed(50);
   if (keyCode == LEFT_ARROW) {
     snake.setDirection(direction.LEFT);
   } else if (keyCode == RIGHT_ARROW) {

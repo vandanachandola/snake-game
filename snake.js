@@ -1,9 +1,11 @@
 class Snake {
-    constructor(x, y, width, canvasWidth) {
+    constructor(x, y, xSpeed, ySpeed, width, canvasWidth) {
         this.x = x;
         this.y = y;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
         this.width = width;
-        this.speedPerSecond = 0;
+        this.scale = width;
         this.canvasWidth = canvasWidth;
     }
 
@@ -11,38 +13,34 @@ class Snake {
         let c = color(255, 255, 255);
         noStroke();
         fill(c);
-        rect(this.x, this.y, this.width, this.width);
+        rect(this.x, this.y, this.scale, this.scale);
     }
 
     setDirection(dir) {
         this.direction = dir;
     }
 
-    setSpeed(speedIn) {
-        this.speedPerSecond = speedIn;
-    }
-
-    update(deltaTime) {
-        this.move(deltaTime);
+    update() {
+        this.move();
         this.wrap();
     }
 
-    move(deltaTime) {
+    move() {
         switch (this.direction) {
             case direction.LEFT:
-                this.x -= this.speedPerSecond * deltaTime;
+                this.x -= this.xSpeed * this.scale;
                 break;
 
             case direction.RIGHT:
-                this.x += this.speedPerSecond * deltaTime;
+                this.x += this.xSpeed * this.scale;
                 break;
 
             case direction.UP:
-                this.y -= this.speedPerSecond * deltaTime;
+                this.y -= this.ySpeed * this.scale;
                 break;
 
             case direction.DOWN:
-                this.y += this.speedPerSecond * deltaTime;
+                this.y += this.ySpeed * this.scale;
                 break;
 
             default: break;
