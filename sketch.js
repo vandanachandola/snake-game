@@ -1,28 +1,30 @@
 let snake;
 let food;
+let canvasWidth = 450;
+let scale = 15;
+let upperLimit = canvasWidth / scale;
 
 function setup() {
-  // put setup code here
-  let canvasWidth = 450;
   let canvas = createCanvas(canvasWidth, canvasWidth);
   canvas.position(10, 10);
-  let scale = 15;
 
   //initialize objects
   snake = new Snake(0, 0, 1, 1, scale, canvasWidth);
 
-  let upperLimit = canvasWidth / scale;
-  let xpos = int(random(upperLimit)) * scale;
-  let ypos = int(random(upperLimit)) * scale;
-  food = new Food(xpos, ypos, scale);
-  frameRate(1);
+  //initialize random food location
+  initFoodLocation();
+
+  //set frame rate
+  frameRate(10);
 }
 
 function draw() {
-  // put drawing code here
   background(0, 0, 0);
 
-  snake.update();
+  snake.update(food);
+  if (snake.eat(food)) {
+    initFoodLocation();
+  }
   snake.render();
   food.render();
 }
@@ -37,4 +39,10 @@ function keyPressed() {
   } else if (keyCode == DOWN_ARROW) {
     snake.setDirection(direction.DOWN);
   }
+}
+
+function initFoodLocation() {
+  let xpos = int(random(upperLimit)) * scale;
+  let ypos = int(random(upperLimit)) * scale;
+  food = new Food(xpos, ypos, scale);
 }

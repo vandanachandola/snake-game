@@ -7,12 +7,17 @@ class Snake {
         this.width = width;
         this.scale = width;
         this.canvasWidth = canvasWidth;
+        this.length = 0;
+        this.tail = [];
     }
 
     render() {
         let c = color(255, 255, 255);
         noStroke();
         fill(c);
+        for (let i = 0; i < this.tail.length; ++i) {
+            rect(this.tail[i].x, this.tail[i].y, this.scale, this.scale);
+        }
         rect(this.x, this.y, this.scale, this.scale);
     }
 
@@ -21,8 +26,18 @@ class Snake {
     }
 
     update() {
+        this.updateTail();
         this.move();
         this.wrap();
+    }
+
+    updateTail() {
+        if (this.length === this.tail.length) {
+            for (let i = 0; i < this.tail.length - 1; ++i) {
+                this.tail[i] = this.tail[i + 1];
+            }
+        }
+        this.tail[this.length - 1] = createVector(this.x, this.y);
     }
 
     move() {
@@ -63,5 +78,15 @@ class Snake {
         else if (this.y < minLimit) {
             this.y = maxLimit;
         }
+    }
+
+    eat(food) {
+        let snake_x = this.x;
+        let snake_y = this.y;
+        if (snake_x == food.x && snake_y == food.y) {
+            ++this.length;
+            return true;
+        }
+        return false;
     }
 }
