@@ -7,7 +7,7 @@ class Snake {
         this.width = width;
         this.scale = width;
         this.canvasWidth = canvasWidth;
-        this.length = 0;
+        this.length = 1;
         this.tail = [];
     }
 
@@ -26,9 +26,9 @@ class Snake {
     }
 
     update() {
-        this.updateTail();
         this.move();
         this.wrap();
+        this.updateTail();
     }
 
     updateTail() {
