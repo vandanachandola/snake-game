@@ -3,6 +3,7 @@ let food;
 let canvasWidth = 450;
 let scale = 15;
 let upperLimit = canvasWidth / scale;
+let isPaused = false;
 
 function setup() {
   let canvas = createCanvas(canvasWidth, canvasWidth);
@@ -22,6 +23,10 @@ function draw() {
   background(0, 0, 0);
 
   snake.update(food);
+  if(snake.checkCrash()) {
+    noLoop();
+  }
+
   if (snake.eat(food)) {
     initFoodLocation();
   }
@@ -38,6 +43,8 @@ function keyPressed() {
     snake.setDirection(direction.UP);
   } else if (keyCode == DOWN_ARROW) {
     snake.setDirection(direction.DOWN);
+  } else if (keyCode == 32) { //32 = Spacebar
+    isPaused = !isPaused;
   }
 }
 
@@ -45,4 +52,12 @@ function initFoodLocation() {
   let xpos = int(random(upperLimit)) * scale;
   let ypos = int(random(upperLimit)) * scale;
   food = new Food(xpos, ypos, scale);
+}
+
+function pauseGame() {
+  if (isPaused) {
+    noLoop();
+  } else {
+    loop();
+  }
 }

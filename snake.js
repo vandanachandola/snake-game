@@ -31,14 +31,6 @@ class Snake {
         this.updateTail();
     }
 
-    updateTail() {
-        if (this.length === this.tail.length) {
-            for (let i = 0; i < this.tail.length - 1; ++i) {
-                this.tail[i] = this.tail[i + 1];
-            }
-        }
-        this.tail[this.length - 1] = createVector(this.x, this.y);
-    }
 
     move() {
         switch (this.direction) {
@@ -78,6 +70,20 @@ class Snake {
         else if (this.y < minLimit) {
             this.y = maxLimit;
         }
+    }
+
+    updateTail() {
+        if (this.length === this.tail.length) {
+            for (let i = 0; i < this.tail.length - 1; ++i) {
+                this.tail[i] = this.tail[i + 1];
+            }
+        }        
+        this.tail[this.length - 1] = createVector(this.x, this.y);        
+    }
+
+    checkCrash() {
+        let interceptArrLen = this.tail.filter(m => m.x == this.x && m.y == this.y).length;
+        return interceptArrLen > 1;
     }
 
     eat(food) {
