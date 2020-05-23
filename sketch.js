@@ -45,6 +45,7 @@ function keyPressed() {
     snake.setDirection(direction.DOWN);
   } else if (keyCode == 32) { //32 = Spacebar
     isPaused = !isPaused;
+    pauseGame();
   }
 }
 
